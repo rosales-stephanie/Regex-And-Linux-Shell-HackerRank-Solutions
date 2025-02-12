@@ -1,0 +1,28 @@
+sed -En '
+s/^[0-9]+$//
+#get rid of attributes within href tag
+s/(<a href=\"[^\"]+\")[^>]*/\1/g
+#add a newline before every href tag
+s/<a href/\n&/g
+#add a newline after every href closing tag if any
+s/<\/a>/&\n/
+#only print the lines with href tag in it
+/<a href/p
+' |
+sed -n '
+#delete all lines that do not start with <a href
+/<a href/!d
+#get rid of closing tags and everything after it
+s/ *<\/.*$//g
+#get rid of tags such as <b>
+s/<[^a][^>]*>//
+#remove quotes
+s/\"//g
+#remove href tag
+s/<a href=//
+#comma seperated
+s/> */,/
+#delete blanks
+/^[[:space:]]*$/d
+p
+'

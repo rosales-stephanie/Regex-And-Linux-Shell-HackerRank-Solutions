@@ -1,0 +1,21 @@
+sed -E "
+#get rid of the first line (ie the number)
+s/^[0-9]*$//
+#get rid of everything between ><
+s/>[^<]*</></g
+#get attributes by removing = and everything after = sign 
+s/([0-9a-z]+)=['\"][^'\"]*['\"]/\1/g
+#get rid of </tag>
+s/<\/[^>]+>//g
+#replace leftover [space]/> with just > ie < br style='...' />
+s/ *\/>/>/g
+#seperate different tags
+s/></\n/g
+#remove >
+s/>//
+#remove <
+s/<//p
+#remove blank line at the top
+#/^[[:space:]]*$/d (same as below)
+/^\s*$/d
+"

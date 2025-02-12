@@ -1,0 +1,42 @@
+awk '
+{
+    #split puts fields into arr
+    #split uses FS (field seperator) by default, which is a space by default
+    l = split($0, arr)
+    #keep track of indexes for tags array 
+    indices[arr[1]] = 0
+    #if a tag does not have any attributes
+    if (l == 1)
+        seen[arr[1]]
+    #keep track of tags and attribute pairs seen so far (ie dictionary)
+    for (i=2; i <= l; i++) {
+        seen[arr[1]" "arr[i]]
+    }
+}
+END{
+    for (pair in seen){
+        #print "seen: " pair
+        size = split(pair, tagAtt)
+        #print "size: " size
+        if (size > 1) 
+            #bump up current index
+            indices[tagAtt[1]] += 1
+        ind = indices[tagAtt[1]]
+        #print "ind: " indices[tagAtt[1]]
+        if (size > 1) 
+            tags[tagAtt[1]" "ind] = tagAtt[2]
+        else
+            tags[tagAtt[1]" "ind]
+    }
+    #loop through all tags
+    for (tag in indices) {
+        numOfAttributes = indices[tag]
+        print "^Z" tag ":"
+        if (numOfAttributes > 0) {
+            for (i=1; i<=numOfAttributes; i++) {
+                print tags[tag" "i] "," | "sort"
+            }
+            close("sort")
+        }
+    }
+}'

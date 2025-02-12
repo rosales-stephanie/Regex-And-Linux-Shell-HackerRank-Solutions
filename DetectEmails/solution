@@ -1,0 +1,7 @@
+sed -En '
+#try to isolate email addresses
+s/[0-9a-zA-Z_\.]+@[0-9a-zA-Z_\.]+\.[0-9a-zA-Z_]+/\n&\n/gp' |
+    sed -En '/^[\.0-9a-zA-Z_]+@[0-9a-zA-Z_\.]+\.[0-9a-zA-Z_]+$/p' |
+       sort -u | 
+            awk '{print $0}' ORS=";" |
+            sed 's/;$/\n/'

@@ -1,0 +1,23 @@
+sed -n '
+s/^.*<a href="\/questions\/\([0-9]*\)\/[^>]*>\([^<]*\).*$/\1;\2;/
+t idPlusQuestion
+b printHoldSpaceContents
+:idPlusQuestion
+H
+:findTime
+s/^.*class="relativetime">\([^<]*\).*$/\1/
+t addTime
+n
+b findTime
+:addTime
+H
+g
+s/\(.*\)\n\(.*\)$/\1\2/
+h
+:printHoldSpaceContents
+${
+g
+s/^\n//
+p
+}
+' stackExchange.txt

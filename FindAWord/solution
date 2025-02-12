@@ -1,0 +1,44 @@
+awk '
+BEGIN{
+RS="[0-9]+"
+}
+{
+    #print $0
+    if (NR == 2) {
+        for (i=1;i<=NF;i++) {
+            sentences[i] = $i
+            numOfSent += 1
+        }
+    }
+    else if (NR == 3) {
+        for (w=1;w<=NF;w++) {
+            count = 0
+            reg[1]  = "^" $w "$"
+            reg[2] = "^" $w "[^a-zA-Z_]"
+            reg[3] = "[^a-zA-Z_]" $w "$"
+            reg[4] = "[^a-zA-Z_]" $w "[^a-zA-Z_]"
+            #print "word: " $w
+            for (sentInd in sentences) {
+                sent = sentences[sentInd]
+                #print "Sentence: " sent
+                before = sent
+                while (match(sent, $w)) { 
+                    for (i=1; i<=length(reg); i++) { 
+                        #print sent
+                        if (sub(reg[i], "", sent) != 0) {
+                            #print "Found one! " 
+                            count += 1
+                            after = sent
+                        }
+                    }
+                    if (before == after) {
+                        break
+                    }
+                    before = after
+                }
+            }
+            print count
+        }
+    }
+}
+'

@@ -1,0 +1,26 @@
+BEGIN{
+RS="[0-9]+\n"
+#ORS=""
+}
+{
+    if (NR == 2) {
+        for (i = 1; i <= NF; i++) {
+            sentences[i] = $i
+        }
+    } else if (NR == 3) {
+        for (i = 1; i <= NF; i++) {
+            count = 0
+            for (ind in sentences) {
+                wordWithOutOur = $i
+                sub(/our/, "or", wordWithOutOur)
+                wordWithOur = $i
+                if ((sentences[ind] == wordWithOur) || #savour was matching
+                (sentences[ind] == wordWithOutOur)) {  #savour[y] so I used ==
+                    count += 1
+                    #print sentences[ind] " " wordWithOur " " wordWithOutOur
+                }
+            }
+            print count
+        }
+    }
+}

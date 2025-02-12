@@ -1,0 +1,5 @@
+awk '
+{
+    if (NR > 1) 
+        print "CountryCode=" $1 ",LocalAreaCode=" $2 ",Number=" $3
+}'

@@ -1,0 +1,25 @@
+awk '
+BEGIN {
+OFS = ""
+ORS = ""
+numberOfTags = 1
+}
+{
+    match($0,/[^;]*/)
+    tag = substr($0, RSTART, RSTART+RLENGTH-1)
+    print tag "\n"
+    if (! seen[tag]){
+        seen[tag] = 1
+        preserveOrder[numberOfTags] = tag
+        numberOfTags = numberOfTags + 1
+    }
+}        
+END {
+    #numberOfTags had one extra
+    numberOfTags -= 1
+    for (i = 1; i < numberOfTags-1; i++)
+        print preserveOrder[i], ";"
+    #so the last one does not have a ; after it
+    print preserveOrder[numberOfTags] "\n"
+}    
+'

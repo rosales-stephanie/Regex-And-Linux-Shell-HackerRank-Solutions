@@ -1,0 +1,11 @@
+awk '
+BEGIN {
+ORS = ""
+}
+{
+print $0
+}
+END {
+print "\n"
+}
+' deleteEndOfLines.txt

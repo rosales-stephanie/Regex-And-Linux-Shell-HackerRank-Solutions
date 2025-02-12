@@ -1,0 +1,8 @@
+awk '
+{if (NR == 1)  next;}
+/^[[:lower:]]{0,3}[[:digit:]]{2,8}[[:upper:]]{3,}$/{
+    print "VALID"; 
+    next;
+}
+{print "INVALID"}
+' utopianIDNumbers.txt

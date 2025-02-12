@@ -1,0 +1,44 @@
+awk '
+BEGIN {                                                                         
+    languages["C"]
+    languages["CPP"]
+    languages["JAVA"]
+    languages["PYTHON"]
+    languages["PERL"]
+    languages["PHP"]
+    languages["RUBY"]
+    languages["CSHARP"]
+    languages["HASKELL"]
+    languages["CLOJURE"]
+    languages["BASH"]
+    languages["SCALA"]
+    languages["ERLANG"]
+    languages["CLISP"]
+    languages["LUA"]
+    languages["BRAINFUCK"]
+    languages["JAVASCRIPT"]
+    languages["GO"]
+    languages["OCAML"]
+    languages["R"]
+    languages["PASCAL"]
+    languages["SBCL"]
+    languages["D"]
+    languages["DART"]
+    languages["GROOVY"]
+    languages["OBJECTIVEC"]
+} 
+{
+    if (NR != 1) {
+        match($0, /[A-Z]+/)
+        s = substr($0, RSTART)
+        #print s, RLENGTH
+        if (s in languages) {
+            print "VALID"
+        }
+        else {
+            print "INVALID"
+        }
+    }
+        
+}
+' hackerRankLanguage.txt

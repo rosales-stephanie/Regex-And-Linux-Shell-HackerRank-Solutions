@@ -1,0 +1,14 @@
+awk '    
+BEGIN {
+    IGNORECASE = 1
+}     
+{                                                                
+    if (NR != 1) {                                                              
+        if ($0 ~ /hackerrank/) {                                               
+            count++                                                             
+        }                                                                       
+    }                                                                           
+}                                                                               
+END {                                                                           
+    print count                                                                 
+}' -  

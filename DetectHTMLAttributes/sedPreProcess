@@ -1,0 +1,16 @@
+sed -n '
+#was used to avoid sorting tags along with their attriutes
+s/\^Z//
+#get rid of last comma
+s/,$//
+#Note: If you put a p, only at the end of this command, nothing would ever get
+# printed ex. ^Zli:id,^Za:accesskey,href,title,^Zul: 
+#tag:^Ztag 
+s/:\^Z/:\n/g
+#Note: If none of the tags had attributes and this command was the only print 
+#statement, nothing would ever get printed as well
+#attribute,^Ztag
+s/,\^Z/\n/g
+#Thus avoid using p at the end of commands and just print everything at the end
+p
+'

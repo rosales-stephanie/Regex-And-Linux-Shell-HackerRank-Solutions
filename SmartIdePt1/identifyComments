@@ -1,0 +1,28 @@
+sed -nE '
+#// comments
+s/^.*\/\/(.*)$/\/\/\1/p
+#/* comments
+/\/\*/{
+    #grab everything after /* (removing any whitespace in the front)
+    s/^.*(\/\*.*$)/\1/
+    :append
+    #if we do not see */
+    /\*\//!{
+        #its a multiline comment
+        #print what we have so far
+        p
+        #eat next line
+        n
+        #get rid of any leading whitespace
+        s/[[:space:]]*//
+        #check newly added line for */
+        /\*\//{
+            #if we go in here it means there is a */
+            #so we will break out of this loop and print it once
+            s/(.*)\*\//\1\*\//
+        }
+        #check again
+        b append
+    } 
+    p
+}'

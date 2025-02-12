@@ -1,0 +1,18 @@
+#! /bin/sh
+awk '
+BEGIN {
+    count = 0
+    IGNORECASE = 1; # worked in Hackerrank
+}
+{
+    if (NR != 1) {
+        if (/hackerrank/i) # -i option did not work in Hackerrank
+        {
+            count++
+        }
+    }
+}
+END {
+print count
+}
+' hackerRankTweets.txt

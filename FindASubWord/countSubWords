@@ -1,0 +1,32 @@
+BEGIN {
+RS = "[0-9]+\n" 
+}
+{
+print "NR: " NR " NF: " NF " Line: " $0
+if (NR == 2) {
+    for (i = 1; i <= NF; i++){
+        sentences[i] = $i
+    }
+}
+if (NR == 3) {
+    cntOfQueries = 0
+    for (i = 1; i <= NF; i++){
+        cntOfQueries++
+        queries[i] = $i
+        #print queries[i]
+    }
+}
+}
+END {
+for (i = 1; i <= cntOfQueries; i++) {
+    count = 0
+    for (ind in sentences){
+        sent = sentences[ind]
+        s = "[0-9a-z_]" queries[i] "[0-9a-z_]"
+        if (sent ~ s) {
+            count++
+        }
+    }
+    print count
+}
+}

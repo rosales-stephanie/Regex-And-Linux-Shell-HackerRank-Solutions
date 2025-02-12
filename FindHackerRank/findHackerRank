@@ -1,0 +1,18 @@
+#! /bin/sh
+awk '
+{
+    if (NR != 1) {
+        if (/^hackerrank/) {
+            if (/hackerrank$/) {
+                print 0
+            } else {
+                print 1
+            }
+        } else if (/hackerrank$/) {
+            print 2
+        } else {
+            print -1
+        }
+    }
+}
+' findHackerrank.txt

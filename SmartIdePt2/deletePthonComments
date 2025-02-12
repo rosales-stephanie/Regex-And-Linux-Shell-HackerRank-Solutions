@@ -1,0 +1,16 @@
+sed -E "
+#delete // comments
+s/^(.*)#.*$/\1/
+#/* comments
+/\'\'\'/{
+    :append
+    /\'\'\'$/!{
+        #its a multiline comment
+        #eat next line
+        n
+        #check now
+        b append
+    } 
+    d
+}
+"

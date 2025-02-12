@@ -1,0 +1,28 @@
+BEGIN{
+RS="[0-9]+\n"
+#ORS=""
+}
+{
+#print "NR: " NR " Line: " $0
+    if (NR == 2) {
+        for (i = 1; i <= NF; i++) {
+            #print $i
+            words[i] = $i
+        }
+    } else if (NR == 3) {
+        for (i = 1; i <= NF; i++) {
+            count = 0
+            for (ind in words) {
+                word = $i
+                l = length(word)            
+                subS = substr(word, 1, l-2)
+                query = subS "(ze|se)"
+                if (words[ind] ~ query) {
+                    count += 1
+                    #print query " " words[ind]
+                }
+            }
+            print count
+        }
+    }
+}
