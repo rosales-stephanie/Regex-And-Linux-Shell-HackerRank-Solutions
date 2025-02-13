@@ -1,1 +1,1 @@
-HackerRank Regex and Linux Shell Solutions! (mostly in Awk) 
+Regex and Linux Shell HackerRank Solutions (mostly in Awk) 
